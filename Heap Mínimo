@@ -1,1 +1,29 @@
+def MIN_HEAPIFY(arr,x):
+
+    left = left_(x)
+    right = right_(x)
+
+    if left < len(arr) and arr[left] < arr[x]:
+        smallest = left
+
+    else:
+        smallest = x
+    if right < len(arr) and arr[right] < arr[smallest]:
+        smallest = right
+
+    if smallest != x:
+        arr[x], arr[smallest] = arr[smallest], arr[x]
+        MIN_HEAPIFY(arr, smallest)
+
+def left_(k):
+    return 2 * k + 1
+
+def right_(k):
+    return 2 * k + 2
+
+def HEAP(arr):
+    y = int((len(arr)//2)-1)
+    for x in range(y, -1, -1):
+        MIN_HEAPIFY(arr,x)
+
 
