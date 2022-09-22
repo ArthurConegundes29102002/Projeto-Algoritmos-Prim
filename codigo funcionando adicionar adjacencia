@@ -1,0 +1,25 @@
+with open('valores','r') as arquivo:
+    tabela = arquivo.readlines()
+#print(tabela)
+tamanho=len(tabela)
+
+
+#-----------------------------
+def gera_grafo(n,grafo):
+    for i in range(0,n+1):
+      grafo[i] = list()
+    return grafo
+  
+def addAresta(grafo,vertice,aresta):
+    grafo[vertice].append(aresta)
+    grafo[aresta].append(vertice)
+    return grafo
+#-----------------------------
+
+dicio={}
+grafo = gera_grafo(tamanho,dicio)
+
+for i in tabela:
+    addAresta(grafo, int(i.split()[1]), int(i.split()[0]))
+
+print(grafo)
