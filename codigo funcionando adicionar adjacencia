@@ -1,27 +1,41 @@
+import sys
+infinito=sys.maxsize
+#----------------------------- lendo a tabela:
+
 with open('valores','r') as arquivo:
     tabela = arquivo.readlines()
-#print(tabela)
+
 tamanho=len(tabela)
 
+#----------------------------- gerando a matriz:
 
-#-----------------------------
-def gera_grafo(n,grafo):
+def gera_grafo(n,grafo,infinito):
     lista=[[0]*tamanho for i in range(tamanho)]
     return lista
 
-  
-def addAresta(grafo,vertice,aresta):
-    grafo[vertice].append(aresta)
-    grafo[aresta].append(vertice)
+#----------------------------- adicionando na matriz:
+
+def addPeso(grafo,vertice,aresta,peso):
+
+    if vertice == aresta:
+        pass
+
+    else:
+        grafo[vertice][aresta]=peso
+        grafo[aresta][vertice]=peso
+        
     return grafo
-#-----------------------------
+
+#----------------------------- iteração pra adicionar na matriz:
 
 dicio={}
-grafo = gera_grafo(tamanho,dicio)
+grafo = gera_grafo(tamanho,dicio,infinito)
 
-for i in tabela:
-    pass
-    #addAresta(grafo, int(i.split()[1]), int(i.split()[0]))
+for x in tabela:
+    peso=x.split(' ')
+    addPeso(grafo,int(peso[0]),int(peso[1]),int(peso[2]))
+    
+for x in grafo:
+    print(x)
 
-print(grafo)
-
+#----------------------------- Prim:
