@@ -1,23 +1,60 @@
+#----------------------------- lendo a tabela:
+
+with open('valores','r') as arquivo:
+    tabela = arquivo.readlines()
+
+tamanho=len(tabela)
+
+#----------------------------- gerando a matriz:
+
+def gera_grafo(n):
+    lista=[[0]*tamanho for i in range(tamanho)]
+    return lista
+
+#----------------------------- adicionando na matriz:
+
+def addPeso(grafo,vertice,aresta,peso):
+
+    if vertice == aresta:
+        pass
+
+    else:
+        grafo[vertice][aresta]=peso
+        grafo[aresta][vertice]=peso
+        
+    return grafo
+
+#----------------------------- iteração pra adicionar na matriz:
+
+grafo_gerado = gera_grafo(tamanho)
+
+for x in tabela:
+    peso=x.split(' ')
+    addPeso(grafo_gerado,int(peso[0]),int(peso[1]),int(peso[2]))
+    
+#retornando o grafo
+#----------------------------- PRIM:
+
+vertice_desejado=int(input('digite o vértice desejado : '))
 
 INFINITO = 9999999
 
-vertices_qtd= 5
+vertices_qtd = tamanho
 
-Grafo = [[0, 19, 5, 0, 0],
-     [19, 0, 5, 9, 2],
-     [5, 5, 0, 1, 6],
-     [0, 9, 1, 0, 1],
-     [0, 2, 6, 1, 0]]
+Grafo = grafo_gerado
 
 # lista_selecionada tem que ser do tamanho da quantidade de vertices : 
 
 lista_selecionada = [0]*vertices_qtd
+
 #auxilia na contagem dentro do while ( basicamente é um contador)
 auxiliar = 0
-lista_selecionada[0] = True
 
-# printing for edge and weight
-print("Edge : Weight\n")
+
+lista_selecionada[vertice_desejado] = True
+#obs : na lista selecionada deve ser inserido o valor inicial , ou seja de onde vai partir a busca
+# o 'true' serve para marcar o vértice
+
 while (auxiliar < vertices_qtd - 1):
     
     minimo = INFINITO
@@ -43,3 +80,5 @@ while (auxiliar < vertices_qtd - 1):
     print(str(a) + "-" + str(b) + ":" + str(Grafo[a][b]))
     lista_selecionada[b] = True
     auxiliar += 1
+    
+    
