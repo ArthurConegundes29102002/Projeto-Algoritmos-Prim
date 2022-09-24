@@ -1,29 +1,54 @@
-def MIN_HEAPIFY(arr,x):
+class MinHeap:
+    #obs : capacity tem que ser o tamanho da lista de adjacencia do vertice , pois ele vai pegar o menor caminho da lista 
+    def __init__(self,capacity):
+        self.storage=[0]*capacity
+        self.capacity=capacity
+        self.size=0
 
-    left = left_(x)
-    right = right_(x)
+    def ParentIndex(self,index):
+        return(index-1)//2
 
-    if left < len(arr) and arr[left] < arr[x]:
-        smallest = left
+    def LeftIndex(self,index):
+        return 2*index+1
 
-    else:
-        smallest = x
-    if right < len(arr) and arr[right] < arr[smallest]:
-        smallest = right
+    def RightIndex(self,index):
+        return 2*index+2
+    
+    def HasParent(self,index):
+        return self.ParentIndex(index)>=0
 
-    if smallest != x:
-        arr[x], arr[smallest] = arr[smallest], arr[x]
-        MIN_HEAPIFY(arr, smallest)
+    def HasLeft(self,index):
+        return self.LeftIndex(index)<self.size
 
-def left_(k):
-    return 2 * k + 1
+    def HasRight(self,index):
+        return self.RightIndex(index)<self.size
 
-def right_(k):
-    return 2 * k + 2
+    def ParentValue(self,index):#parent
+        return self.storage[self.ParentIndex(index)]
 
-def HEAP(arr):
-    y = int((len(arr)//2)-1)
-    for x in range(y, -1, -1):
-        MIN_HEAPIFY(arr,x)
+    def LeftValue(self,index):
+        return self.storage[self.LeftIndex(index)]
 
+    def RightValue(self,index):
+        return self.storage[self.RightIndex(index)]
 
+    def FULL(self):
+        return self.size==self.capacity
+
+    def SWAP(self,x,y):
+        changer=self.storage[x]
+        self.storage[x]=self.storage[y]
+        self.storage[y]=changer
+
+    def INSERT(self,value):
+        if(self.FULL()):
+            raise('error:full capacity')
+        self.storage[self.size]=value
+        self.size+=1
+        self.HEAPIFY()
+
+    def HEAPIFY(self):
+        index=self.size-1
+        while(self.HasParent(index)and self.ParentValue(index)>self.storage[index]):
+            self.SWAP(self.ParentIndex(index),index)
+            index=self.ParentIndex(index)
