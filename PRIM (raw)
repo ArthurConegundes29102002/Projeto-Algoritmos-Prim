@@ -26,6 +26,7 @@ def addPeso(grafo,vertice,aresta,peso):
 
 #----------------------------- iteração pra adicionar na matriz:
 
+
 grafo_gerado = gera_grafo(tamanho)
 
 for x in tabela:
@@ -33,6 +34,8 @@ for x in tabela:
     addPeso(grafo_gerado,int(peso[0]),int(peso[1]),int(peso[2]))
     
 #retornando o grafo
+
+
 #----------------------------- PRIM:
 
 vertice_desejado=int(input('digite o vértice desejado : '))
@@ -76,9 +79,13 @@ while (auxiliar < vertices_qtd - 1):
                         
                         a = cord1
                         b = cord2
+    if a==0 and b==0:
+        pass
+    else:
+        print(str(a) + "-" + str(b) + ":" + str(Grafo[a][b]))
 
-    print(str(a) + "-" + str(b) + ":" + str(Grafo[a][b]))
     lista_selecionada[b] = True
+    #vertice sendo marcado
     auxiliar += 1
     
     
