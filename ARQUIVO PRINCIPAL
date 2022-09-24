@@ -1,0 +1,136 @@
+#----------------------------- min heap:
+
+class MinHeap:
+    #obs : capacity tem que ser o tamanho da lista de adjacencia do vertice , pois ele vai pegar o menor caminho da lista 
+    def __init__(self,capacity):
+        self.storage=[0]*capacity
+        self.capacity=capacity
+        self.size=0
+
+    def ParentIndex(self,index):
+        return(index-1)//2
+
+    def LeftIndex(self,index):
+        return 2*index+1
+
+    def RightIndex(self,index):
+        return 2*index+2
+    
+    def HasParent(self,index):
+        return self.ParentIndex(index)>=0
+
+    def HasLeft(self,index):
+        return self.LeftIndex(index)<self.size
+
+    def HasRight(self,index):
+        return self.RightIndex(index)<self.size
+
+    def ParentValue(self,index):#parent
+        return self.storage[self.ParentIndex(index)]
+
+    def LeftValue(self,index):
+        return self.storage[self.LeftIndex(index)]
+
+    def RightValue(self,index):
+        return self.storage[self.RightIndex(index)]
+
+    def FULL(self):
+        return self.size==self.capacity
+
+    def SWAP(self,x,y):
+        changer=self.storage[x]
+        self.storage[x]=self.storage[y]
+        self.storage[y]=changer
+
+    def INSERT(self,value):
+        if(self.FULL()):
+            raise('error:full capacity')
+        self.storage[self.size]=value
+        self.size+=1
+        self.HEAPIFY()
+
+    def HEAPIFY(self):
+        index=self.size-1
+        while(self.HasParent(index)and self.ParentValue(index)>self.storage[index]):
+            self.SWAP(self.ParentIndex(index),index)
+            index=self.ParentIndex(index)
+
+#----------------------------- lendo a tabela:
+
+with open('valores','r') as arquivo:
+    tabela = arquivo.readlines()
+
+tamanho=len(tabela)
+
+#----------------------------- gerando a matriz:
+
+def gera_grafo(n,grafo):
+    lista=[[0]*tamanho for i in range(tamanho)]
+    return lista
+
+#----------------------------- adicionando na matriz:
+
+def addPeso(grafo,vertice,aresta,peso):
+
+    if vertice == aresta:
+        pass
+
+    else:
+        grafo[vertice][aresta]=peso
+        grafo[aresta][vertice]=peso
+        
+    return grafo
+
+#----------------------------- iteração pra adicionar na matriz:
+
+dicio={}
+grafo = gera_grafo(tamanho,dicio)
+
+for x in tabela:
+    peso=x.split(' ')
+    addPeso(grafo,int(peso[0]),int(peso[1]),int(peso[2]))
+    
+for x in grafo:
+    print(x)
+
+#----------------------------- criando lista de adjacencia:
+
+adj1=[]
+
+adj=MinHeap(tamanho)
+
+for column in grafo:
+    adj1.append(column[1])
+for x in adj1:
+    if x > 0 :
+        adj.INSERT(x)
+
+#----------------------------- 
+
+print('lista de adjacencia do numero 1:')
+print(adj1)
+
+print('lista de adjacencia do numero 1 apos o heap:')
+print(adj.storage)
+
+print(f'próximo vértice a ser visitado :')
+print(adj1.index(adj.storage[0]))
+
+#----------------------------- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
