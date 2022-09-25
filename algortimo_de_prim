@@ -41,7 +41,7 @@ for j in range(1,numero_de_arestas):
 
 #raiz escolhida : 
 
-raiz = int(input("digite a raiz de onde deseja começar:"))
+raiz = int(input("digite o ID da cidade de onde deseja começar:"))
 
 for (x,custo) in lista_vizinhos[raiz]:
 
@@ -79,9 +79,14 @@ while contador_auxiliar<numero_nos-1:
 
             heap.heappush(lista_heap,(custo,valor2,x))
 
-print(custo_total)
+print('')
+print(f'distância percorrida :  {custo_total} KM ')
 
-print(arvore_geradora)
+for x in arvore_geradora:
+    print('origem/destino')
+    print('')
+    print(x)
+    
 import MINHEAP as heap
 import linecache
 #---------------------------------------- algoritmo de prim :
@@ -125,7 +130,7 @@ for j in range(1,numero_de_arestas):
 
 #raiz escolhida : 
 
-raiz = int(input("digite a raiz de onde deseja começar:"))
+raiz = int(input("digite o ID da cidade de onde deseja começar:"))
 
 for (x,custo) in lista_vizinhos[raiz]:
 
@@ -163,6 +168,11 @@ while contador_auxiliar<numero_nos-1:
 
             heap.heappush(lista_heap,(custo,valor2,x))
 
-print(custo_total)
+print('')
+print(f'distância percorrida :  {custo_total} KM ')
 
-print(arvore_geradora)
+for x in arvore_geradora:
+    print('origem/destino')
+    print('')
+    print(x)
+    
