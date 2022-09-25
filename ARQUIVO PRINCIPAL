@@ -1,136 +1,143 @@
-#----------------------------- min heap:
+def heapbaixo(heap, posicaoinicial, posicao):
 
-class MinHeap:
-    #obs : capacity tem que ser o tamanho da lista de adjacencia do vertice , pois ele vai pegar o menor caminho da lista 
-    def __init__(self,capacity):
-        self.storage=[0]*capacity
-        self.capacity=capacity
-        self.size=0
+    novo_valor = heap[posicao]
 
-    def ParentIndex(self,index):
-        return(index-1)//2
+    while posicao > posicaoinicial:
 
-    def LeftIndex(self,index):
-        return 2*index+1
+        posicao_pai = (posicao - 1) >> 1
 
-    def RightIndex(self,index):
-        return 2*index+2
-    
-    def HasParent(self,index):
-        return self.ParentIndex(index)>=0
+        parente = heap[posicao_pai]
 
-    def HasLeft(self,index):
-        return self.LeftIndex(index)<self.size
+        if novo_valor < parente:
 
-    def HasRight(self,index):
-        return self.RightIndex(index)<self.size
+            heap[posicao] = parente
 
-    def ParentValue(self,index):#parent
-        return self.storage[self.ParentIndex(index)]
+            posicao = posicao_pai
 
-    def LeftValue(self,index):
-        return self.storage[self.LeftIndex(index)]
+            continue
+        break
+    heap[posicao] = novo_valor
+#----------------------------------------
+def heapcima(heap, posicao):
 
-    def RightValue(self,index):
-        return self.storage[self.RightIndex(index)]
+    posicaofinal = len(heap)
 
-    def FULL(self):
-        return self.size==self.capacity
+    posicaoinicial = posicao
 
-    def SWAP(self,x,y):
-        changer=self.storage[x]
-        self.storage[x]=self.storage[y]
-        self.storage[y]=changer
+    novo_valor = heap[posicao]
 
-    def INSERT(self,value):
-        if(self.FULL()):
-            raise('error:full capacity')
-        self.storage[self.size]=value
-        self.size+=1
-        self.HEAPIFY()
+    posicao_filho = 2*posicao + 1 
 
-    def HEAPIFY(self):
-        index=self.size-1
-        while(self.HasParent(index)and self.ParentValue(index)>self.storage[index]):
-            self.SWAP(self.ParentIndex(index),index)
-            index=self.ParentIndex(index)
+    while posicao_filho < posicaofinal:
 
-#----------------------------- lendo a tabela:
+        rightpos = posicao_filho + 1
 
-with open('valores','r') as arquivo:
-    tabela = arquivo.readlines()
+        if rightpos < posicaofinal and not heap[posicao_filho] < heap[rightpos]:
 
-tamanho=len(tabela)
+            posicao_filho = rightpos
 
-#----------------------------- gerando a matriz:
+        heap[posicao] = heap[posicao_filho]
 
-def gera_grafo(n,grafo):
-    lista=[[0]*tamanho for i in range(tamanho)]
-    return lista
+        posicao = posicao_filho
 
-#----------------------------- adicionando na matriz:
+        posicao_filho = 2*posicao + 1
 
-def addPeso(grafo,vertice,aresta,peso):
+    heap[posicao] = novo_valor
 
-    if vertice == aresta:
-        pass
+    heapbaixo(heap, posicaoinicial, posicao)
+#----------------------------------------
+def heappush(heap, valor):
 
-    else:
-        grafo[vertice][aresta]=peso
-        grafo[aresta][vertice]=peso
-        
-    return grafo
+    heap.append(valor)
 
-#----------------------------- iteração pra adicionar na matriz:
+    heapbaixo(heap, 0, len(heap)-1)
+#----------------------------------------
+def heappop(heap):
 
-dicio={}
-grafo = gera_grafo(tamanho,dicio)
+    lastelt = heap.pop()
 
-for x in tabela:
-    peso=x.split(' ')
-    addPeso(grafo,int(peso[0]),int(peso[1]),int(peso[2]))
-    
-for x in grafo:
-    print(x)
+    if heap:
 
-#----------------------------- criando lista de adjacencia:
+        retorna_valor = heap[0]
 
-adj1=[]
+        heap[0] = lastelt
 
-adj=MinHeap(tamanho)
+        heapcima(heap, 0)
 
-for column in grafo:
-    adj1.append(column[1])
-for x in adj1:
-    if x > 0 :
-        adj.INSERT(x)
+        return retorna_valor
 
-#----------------------------- 
+    return lastelt
+#---------------------------------------- algoritmo de prim :
 
-print('lista de adjacencia do numero 1:')
-print(adj1)
+numero_nos,numero_de_arestas = input().split()
+numero_nos=int(numero_nos)
+numero_de_arestas=int(numero_de_arestas)
 
-print('lista de adjacencia do numero 1 apos o heap:')
-print(adj.storage)
+lista_heap=[]
 
-print(f'próximo vértice a ser visitado :')
-print(adj1.index(adj.storage[0]))
+#n_out = lista de vizinhos pra cada nó
 
-#----------------------------- 
+lista_vizinhos=[[]*numero_nos for i in range(numero_nos)]
+
+for j in range(numero_de_arestas):
+
+    valor1,valor2,custo=input().split()
+
+    valor1=int(valor1)
+
+    valor2=int(valor2)
+
+    custo=int(custo)
+
+    lista_vizinhos[valor1].append((valor2,custo))
+
+    lista_vizinhos[valor2].append((valor1,custo))
+
+# até aqui estamos apenas criando a estrutura do grafo 
+
+# começando a bagunça ...... :
 
 
+#raiz escolhida : 
+raiz = 4
 
+for (x,custo) in lista_vizinhos[raiz]:
 
+    heappush(lista_heap,(custo,raiz,x))
 
+contador_auxiliar = 0
+#contador auxiliar = n_edges
+custo_total=0
 
+marcados=[raiz]
 
+arvore_geradora=[]
 
+while contador_auxiliar<numero_nos-1:
 
+    while True:
 
+        (custo,valor1,valor2)=heappop(lista_heap)
 
+        if valor2 not in marcados:
 
+            break
+    marcados.append(valor2)
 
+    custo_total+=custo
 
+    arvore_geradora.append((valor1,valor2))
 
+    contador_auxiliar+=1
+
+    for(x,custo) in lista_vizinhos[valor2]:
+
+        if x not in marcados:
+
+            heappush(lista_heap,(custo,valor2,x))
+
+print(custo_total)
+
+print(arvore_geradora)
 
 
