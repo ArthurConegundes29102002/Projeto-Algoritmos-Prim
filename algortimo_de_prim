@@ -1,7 +1,5 @@
 import MINHEAP as heap
 import linecache
-
-
 #---------------------------------------- algoritmo de prim :
 
 with open('valores.txt','r') as arquivo:
@@ -14,9 +12,9 @@ numero_de_arestas=int(len(tabela))
 lista_heap=[]
 
 #lista de vizinhos pra cada nó : 
+
 lista_vizinhos=[[]*numero_nos for i in range(numero_nos)]
 
-#problema ::
 
 for j in range(1,numero_de_arestas):
 
@@ -42,7 +40,8 @@ for j in range(1,numero_de_arestas):
 # começando a bagunça ...... 
 
 #raiz escolhida : 
-raiz = int(input())
+
+raiz = int(input("digite a raiz de onde deseja começar:"))
 
 for (x,custo) in lista_vizinhos[raiz]:
 
