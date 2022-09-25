@@ -12,7 +12,7 @@ nx.draw_networkx(G,pos=nx.spring_layout(G),with_labels=True)
 plt.show()
 
 
-with open('valores','r') as arquivo:
+with open('valores.txt','r') as arquivo:
     tabela = arquivo.readlines()
 for x in tabela:
     peso=x.split(' ')
