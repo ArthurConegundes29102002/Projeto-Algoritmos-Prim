@@ -1,0 +1,8 @@
+* os arquivos devem estar na mesma pasta para serem executados corretamente *
+
+obs: 
+
+utilizamos as bibliotecas networkx e matplot para representar o resultado do algoritmo graficamente
+porém o caminho traçado no grafo pode ser visualizado no terminal , assim como a distância total percorrida.
+
+
