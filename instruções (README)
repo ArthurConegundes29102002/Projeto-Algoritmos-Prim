@@ -1,5 +1,8 @@
 * os arquivos devem estar na mesma pasta para serem executados corretamente *
 
+
+base de dados : https://people.sc.fsu.edu/~jburkardt/datasets/cities/cities.html
+
 obs: 
 
 utilizamos as bibliotecas networkx e matplot para representar o resultado do algoritmo graficamente
