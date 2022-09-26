@@ -1,3 +1,4 @@
+import linecache
 import networkx as nx
 import matplotlib.pyplot as plt
 import prim as p
@@ -6,17 +7,20 @@ G = nx.Graph()
 A=nx.Graph()
 
 for x in p.arvore_geradora:
-    G.add_edge(int(x[0]),int(x[1]))
+    G.add_edge(p.dicionario[int(x[0])],p.dicionario[int(x[1])])
 
 nx.draw_networkx(G,pos=nx.spring_layout(G),with_labels=True)
 plt.show()
 
 
-with open('valores.txt','r') as arquivo:
-    tabela = arquivo.readlines()
-for x in tabela:
-    peso=x.split(' ')
-    A.add_edge(int(peso[0]),int(peso[1]))
+for y in p.lst_adj:
+    if y[0]==y[1]:
+        pass
+    else:
+        A.add_edge(p.dicionario[y[0]],p.dicionario[y[1]])
 
-nx.draw_networkx(A,pos=nx.spring_layout(G),with_labels=True)  
+nx.draw_networkx(A,pos=nx.spring_layout(A),with_labels=True)  
 plt.show()
+
+
+
