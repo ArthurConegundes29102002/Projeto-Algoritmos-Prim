@@ -15,6 +15,7 @@ lista_heap=[]
 
 lista_vizinhos=[[]*numero_nos for i in range(numero_nos)]
 
+lst_adj=[]
 
 for j in range(1,numero_de_arestas):
 
@@ -34,7 +35,7 @@ for j in range(1,numero_de_arestas):
 
     lista_vizinhos[valor2].append((valor1,custo))
 
-
+    lst_adj.append((valor1,valor2))
 # até aqui estamos apenas criando a estrutura do grafo 
 
 # começando a bagunça ...... 
@@ -98,4 +99,5 @@ print(f'distância percorrida :  {custo_total} KM ')
 
 for x in arvore_geradora:
     print(f'{dicionario[x[0]]}     ------>     {dicionario[x[1]]}')
+
     
