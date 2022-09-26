@@ -6,13 +6,6 @@ import prim as p
 G = nx.Graph()
 A=nx.Graph()
 
-for x in p.arvore_geradora:
-    G.add_edge(p.dicionario[int(x[0])],p.dicionario[int(x[1])])
-
-nx.draw_networkx(G,pos=nx.spring_layout(G),with_labels=True)
-plt.show()
-
-
 for y in p.lst_adj:
     if y[0]==y[1]:
         pass
@@ -23,4 +16,9 @@ nx.draw_networkx(A,pos=nx.spring_layout(A),with_labels=True)
 plt.show()
 
 
+for x in p.arvore_geradora:
+    G.add_edge(p.dicionario[int(x[0])],p.dicionario[int(x[1])])
+
+nx.draw_networkx(G,pos=nx.spring_layout(G),with_labels=True)
+plt.show()
 
